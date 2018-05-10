@@ -4,6 +4,9 @@ require_relative '../config/environment'
 # to get condition: situations[arrElem]["Consequences"][0]["Consequence"][0]["Condition"][0]
 # to get reason: situations[arrElem]["ReasonName"][0]
 
+binding.pry
+true
+
 CLI.new.run
 
 #binding.pry
