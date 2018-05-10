@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 4) do
 
   create_table "lines", force: :cascade do |t|
     t.string "name"
-    t.string "status"
   end
 
   create_table "trip_lines", force: :cascade do |t|
