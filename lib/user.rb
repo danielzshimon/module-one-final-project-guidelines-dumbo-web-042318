@@ -1,3 +1,3 @@
-class User
-  has_many :trips 
+class User < ActiveRecord::Base
+  has_many :trips
 end
