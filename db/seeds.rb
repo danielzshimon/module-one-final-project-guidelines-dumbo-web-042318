@@ -1,3 +1,5 @@
+Line.destroy_all
+
 s_1 = Line.create(name: "1")
 s_2 = Line.create(name: "2")
 s_3 = Line.create(name: "3")

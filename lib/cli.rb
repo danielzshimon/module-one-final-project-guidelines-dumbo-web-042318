@@ -1,5 +1,5 @@
 class CLI
-  attr_reader :input
+  attr_reader :input, :user
 
   def run
     #runner function - combines other functions
@@ -24,15 +24,22 @@ class CLI
     when "2"
       signup_prompt
     when "3"
-      exit
+      abort("FUGHEDDABOUTIT!")
     else
       puts "Please enter a valid choice."
     end
   end
 
   def login_prompt
-    print "Enter account email: "
-    get_user_input
+      print "Enter account email: "
+      get_user_input
+      user = User.find_by email: self.input
+      if user == nil
+        puts "User does not exist.\n\n"
+        login_or_signup
+      else
+        @user = user
+      end
   end
 
   def signup_prompt
