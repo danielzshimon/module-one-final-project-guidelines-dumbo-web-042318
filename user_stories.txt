@@ -1,0 +1,7 @@
+As a subway rider, I want to know whether or not the lines I plan to take are running with good service so that I can avoid delays.
+
+As a subway rider, I want to know which lines I use most so I can figure out whether I'm using a line that's frequently delayed.
+
+As a subway rider, I want to know which of my trips have been affected by service interruptions so I can have excused latenesses.
+
+As a subway rider, I want to know which lines are most affected by service interruptions so I can avoid those.
