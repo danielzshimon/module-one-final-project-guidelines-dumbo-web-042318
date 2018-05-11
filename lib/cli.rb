@@ -3,8 +3,14 @@ class CLI
 
   def run
     #runner function - combines other functions
+    cls
     welcome
     login_or_signup
+  end
+
+  def cls
+    clear_code = %x{clear}
+    print clear_code
   end
 
   def welcome
@@ -24,6 +30,7 @@ class CLI
     when "2"
       signup_prompt
     when "3"
+      cls
       abort("FUGHEDDABOUTIT!")
     else
       puts "Please enter a valid choice."
@@ -35,6 +42,7 @@ class CLI
       get_user_input
       user = User.find_by email: self.input
       if user == nil
+        cls
         puts "User does not exist.\n\n"
         login_or_signup
       else
