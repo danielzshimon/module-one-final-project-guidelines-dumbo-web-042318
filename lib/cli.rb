@@ -14,7 +14,7 @@ class CLI
   end
 
   def press_any_key
-    print "\nPress any key to continue...".green
+    print "\nPress any key to continue...".light_yellow
     STDIN.getch
     print "            \r"
   end
@@ -34,7 +34,7 @@ class CLI
 
   def login_or_signup
     print "[1] Log in\n[2] Create account\n[3] GTFO\n\n"
-    print "Enter choice: ".green
+    print "Enter choice: ".light_yellow
     get_user_input
     case self.input
     when "1"
@@ -43,7 +43,7 @@ class CLI
       signup_prompt
     when "3"
       cls
-      abort("FUGHEDDABOUTIT!".light_yellow)
+      abort("FUGHEDDABOUTIT!".red)
     else
       cls
       puts "Please enter a valid choice.".red
@@ -52,7 +52,7 @@ class CLI
   end
 
   def login_prompt
-      print "Enter account email: "
+      print "Enter account email: ".light_yellow
       get_user_input
       user = User.find_by email: self.input
       if user == nil
@@ -67,21 +67,23 @@ class CLI
   end
 
   def signup_prompt
-    print "Please provide the following information:\n\nEmail address: "
+    print "Please provide the following information:\n\n"
+    print "Email address: ".light_yellow
     get_user_input
     email = self.input
-    print "Name: "
+    print "Name: ".light_yellow
     get_user_input
     name = self.input
-    puts "Creating account..."
+    puts "\nCreating account...".light_cyan
     User.create(name: name, email: email)
-    puts "Account created!"
+    puts "Account created!".green
+    press_any_key
   end
 
   def user_menu
     print "Welcome back, #{self.user.name}!\n\n".light_cyan
     print "[1] Create new trip\n[2] See my trip(s)\n[3] See status for a specific subway line\n[4] See all lines with service advisories\n[5] Log out and return to main menu\n\n"
-    print "Enter choice: ".green
+    print "Enter choice: ".light_yellow
     get_user_input
     case self.input
     when "1"
@@ -106,13 +108,13 @@ class CLI
 
   def create_trip_prompt
     #prompt user for origin
-    print "Please enter your trip origin: "
+    print "Please enter your trip origin: ".light_yellow
     origin = get_user_input
     #prompt user for destination
-    print "Please enter your trip destination: "
+    print "Please enter your trip destination: ".light_yellow
     destination = get_user_input
     #prompt user for trip lines
-    print "Please enter subway lines for this trip, separated by commas: "
+    print "Please enter subway lines for this trip, separated by commas: ".light_yellow
     trip_lines = get_user_input
     #create trip instance
     trip = Trip.create(origin: origin, destination: destination, user_id: self.user.id)
@@ -125,22 +127,22 @@ class CLI
 
   def display_all_user_trips
     #get all user trips
-    #display created date, origin, destination,  line statuses
+    #display created date, origin, destination, line statuses
   end
 
   def line_status_prompt
     #get line from user
-    line = prompt_user("Enter a subway line: ")
+    line = prompt_user("Enter a subway line: ".light_yellow)
     line_obj = Line.find_by name: line.strip.upcase
     #if no statuses, tell this to user
     #otherwise put status, reason
     if line_obj.status.empty?
-      puts "Ya good"
+      puts "Ya good".green
     else
       line_obj.status.each do | status |
         puts "#{line_obj.name} is #{status.condition} due to #{status.reason}."
       end
-      puts "Ya gonna be late!"
+      puts "Ya gonna be late!".red
     end
     press_any_key
     cls
