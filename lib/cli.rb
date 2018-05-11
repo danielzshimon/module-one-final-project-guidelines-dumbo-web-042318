@@ -84,6 +84,9 @@ class CLI
     User.create(name: name, email: email)
     puts "Account created!".green
     press_any_key
+    cls
+    welcome
+    login_or_signup
   end
 
   def user_menu
