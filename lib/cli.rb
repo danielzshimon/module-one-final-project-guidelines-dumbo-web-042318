@@ -32,7 +32,7 @@ class CLI
       signup_prompt
     when "3"
       cls
-      abort("FUGHEDDABOUTIT!")
+      abort("FUGHEDDABOUTIT!".light_yellow)
     else
       cls
       puts "Please enter a valid choice.".red
@@ -124,6 +124,11 @@ class CLI
 
   def display_service_advisories
     #get all lines with service advisories
+    Status.update
     #display line name, status, reason for each
+    Status.all.each do | status |
+      line_obj = Line.find(status.line_id)
+      puts "#{line_obj.name} is #{status.condition} due to #{status.reason}."
+    end
   end
 end
