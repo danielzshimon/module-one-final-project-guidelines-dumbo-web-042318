@@ -14,7 +14,7 @@ class CLI
   end
 
   def welcome
-    puts "Welcome! At the following screens, enter the number\nfor your choice and press ENTER/RETURN:\n\n"
+    puts "Welcome! At the following screens, enter the number\nfor your choice and press ENTER/RETURN:\n".light_cyan
   end
 
   def get_user_input
@@ -75,7 +75,7 @@ class CLI
     when "1"
       create_trip_prompt
     when "2"
-      display_trips
+      display_all_user_trips
     when "3"
       line_status_prompt
     when "4"
@@ -111,7 +111,7 @@ class CLI
     end
   end
 
-  def display_trips
+  def display_all_user_trips
     #get all user trips
     #display created date, origin, destination,  line statuses
   end
