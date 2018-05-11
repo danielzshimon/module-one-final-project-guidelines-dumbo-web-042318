@@ -13,6 +13,12 @@ class CLI
     print clear_code
   end
 
+  def press_any_key
+    print "\nPress any key to continue...".green
+    STDIN.getch
+    print "            \r"
+  end
+
   def welcome
     puts "Welcome! At the following screens, enter the number\nfor your choice and press ENTER/RETURN:\n".light_cyan
   end
@@ -68,7 +74,8 @@ class CLI
   end
 
   def user_menu
-    print "Welcome back, #{self.user.name}!\n\n[1] Create new trip\n[2] See my trip(s)\n[3] See status for a specific subway line\n[4] See all lines with service advisories\n[5] Log out and return to main menu\n\n"
+    print "Welcome back, #{self.user.name}!\n\n".light_cyan
+    print "[1] Create new trip\n[2] See my trip(s)\n[3] See status for a specific subway line\n[4] See all lines with service advisories\n[5] Log out and return to main menu\n\n"
     print "Enter choice: ".green
     get_user_input
     case self.input
@@ -126,9 +133,14 @@ class CLI
     #get all lines with service advisories
     Status.update
     #display line name, status, reason for each
+    cls
+    puts "Here are the current MTA subway service advisories:\n".light_cyan
     Status.all.each do | status |
       line_obj = Line.find(status.line_id)
       puts "#{line_obj.name} is #{status.condition} due to #{status.reason}."
     end
+    press_any_key
+    cls
+    user_menu
   end
 end
