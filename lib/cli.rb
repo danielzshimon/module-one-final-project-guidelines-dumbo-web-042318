@@ -73,13 +73,13 @@ class CLI
     get_user_input
     case self.input
     when "1"
-      #create_trip_prompt todo
+      create_trip_prompt
     when "2"
-      #display_trips todo
+      display_trips
     when "3"
-      #line_status_prompt todo
+      line_status_prompt
     when "4"
-      #display_service_advisories todo
+      display_service_advisories
     when "5"
       @user = nil
       cls
@@ -94,10 +94,21 @@ class CLI
 
   def create_trip_prompt
     #prompt user for origin
+    print "Please enter your trip origin: "
+    origin = get_user_input
     #prompt user for destination
+    print "Please enter your trip destination: "
+    destination = get_user_input
     #prompt user for trip lines
+    print "Please enter subway lines for this trip, separated by commas: "
+    trip_lines = get_user_input
     #create trip instance
+    trip = Trip.create(origin: origin, destination: destination, user_id: self.user.id)
     #create tripline instance for each line
+    trip_lines.upcase.split(",").each do | line |
+      line_obj = Line.find_by name: line.strip
+      TripLine.create(trip_id: trip.id, line_id: line_obj.id)
+    end
   end
 
   def display_trips
