@@ -19,6 +19,12 @@ class CLI
     print "            \r"
   end
 
+  def key_cls_user_menu
+    press_any_key
+    cls
+    user_menu
+  end
+
   def get_user_input
     @input = gets.chomp
   end
@@ -119,10 +125,13 @@ class CLI
     #create trip instance
     trip = Trip.create(origin: origin, destination: destination, user_id: self.user.id)
     #create tripline instance for each line
+    puts "Creating trip...".light_cyan
     trip_lines.upcase.split(",").each do | line |
       line_obj = Line.find_by name: line.strip.upcase
       TripLine.create(trip_id: trip.id, line_id: line_obj.id)
     end
+    puts "Trip created!".green
+    key_cls_user_menu
   end
 
   def display_all_user_trips
@@ -132,6 +141,7 @@ class CLI
     trips.each do | trip |
       puts "#{trip.created_at}     #{trip.origin}     #{trip.destination}"
     end
+    key_cls_user_menu
   end
 
   def line_status_prompt
@@ -148,9 +158,7 @@ class CLI
       end
       puts "Ya gonna be late!".red
     end
-    press_any_key
-    cls
-    user_menu
+    key_cls_user_menu
   end
 
   def display_service_advisories
@@ -163,8 +171,6 @@ class CLI
       line_obj = Line.find(status.line_id)
       puts "#{line_obj.name} is #{status.condition} due to #{status.reason}."
     end
-    press_any_key
-    cls
-    user_menu
+    key_cls_user_menu
   end
 end
