@@ -22,7 +22,8 @@ class CLI
   end
 
   def login_or_signup
-    print "[1] Log in\n[2] Create account\n[3] GTFO\n\nEnter choice: "
+    print "[1] Log in\n[2] Create account\n[3] GTFO\n\n"
+    print "Enter choice: ".green
     get_user_input
     case self.input
     when "1"
@@ -33,7 +34,9 @@ class CLI
       cls
       abort("FUGHEDDABOUTIT!")
     else
-      puts "Please enter a valid choice."
+      cls
+      puts "Please enter a valid choice.".red
+      login_or_signup
     end
   end
 
@@ -47,6 +50,8 @@ class CLI
         login_or_signup
       else
         @user = user
+        cls
+        user_menu
       end
   end
 
@@ -60,5 +65,54 @@ class CLI
     puts "Creating account..."
     User.create(name: name, email: email)
     puts "Account created!"
+  end
+
+  def user_menu
+    print "Welcome back, #{self.user.name}!\n\n[1] Create new trip\n[2] See my trip(s)\n[3] See status for a specific subway line\n[4] See all lines with service advisories\n[5] Log out and return to main menu\n\n"
+    print "Enter choice: ".green
+    get_user_input
+    case self.input
+    when "1"
+      #create_trip_prompt todo
+    when "2"
+      #display_trips todo
+    when "3"
+      #line_status_prompt todo
+    when "4"
+      #display_service_advisories todo
+    when "5"
+      @user = nil
+      cls
+      welcome
+      login_or_signup
+    else
+      cls
+      puts "Please enter a valid choice.".red
+      user_menu
+    end
+  end
+
+  def create_trip_prompt
+    #prompt user for origin
+    #prompt user for destination
+    #prompt user for trip lines
+    #create trip instance
+    #create tripline instance for each line
+  end
+
+  def display_trips
+    #get all user trips
+    #display created date, origin, destination,  line statuses
+  end
+
+  def line_status_prompt
+    #get line from user
+    #if no statuses, tell this to user
+    #otherwise put status, reason
+  end
+
+  def display_service_advisories
+    #get all lines with service advisories
+    #display line name, status, reason for each
   end
 end
