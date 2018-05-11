@@ -17,6 +17,10 @@ class Status
     @@all << self
   end
 
+  def line
+    Line.find(self.line_id)
+  end
+
   # class methods
 
   def self.all

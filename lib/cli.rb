@@ -19,12 +19,17 @@ class CLI
     print "            \r"
   end
 
-  def welcome
-    puts "Welcome! At the following screens, enter the number\nfor your choice and press ENTER/RETURN:\n".light_cyan
-  end
-
   def get_user_input
     @input = gets.chomp
+  end
+
+  def prompt_user(prompt)
+    print prompt
+    get_user_input
+  end
+
+  def welcome
+    puts "Welcome! At the following screens, enter the number\nfor your choice and press ENTER/RETURN:\n".light_cyan
   end
 
   def login_or_signup
@@ -113,7 +118,7 @@ class CLI
     trip = Trip.create(origin: origin, destination: destination, user_id: self.user.id)
     #create tripline instance for each line
     trip_lines.upcase.split(",").each do | line |
-      line_obj = Line.find_by name: line.strip
+      line_obj = Line.find_by name: line.strip.upcase
       TripLine.create(trip_id: trip.id, line_id: line_obj.id)
     end
   end
@@ -125,8 +130,21 @@ class CLI
 
   def line_status_prompt
     #get line from user
+    line = prompt_user("Enter a subway line: ")
+    line_obj = Line.find_by name: line.strip.upcase
     #if no statuses, tell this to user
     #otherwise put status, reason
+    if line_obj.status.empty?
+      puts "Ya good"
+    else
+      line_obj.status.each do | status |
+        puts "#{line_obj.name} is #{status.condition} due to #{status.reason}."
+      end
+      puts "Ya gonna be late!"
+    end
+    press_any_key
+    cls
+    user_menu
   end
 
   def display_service_advisories
