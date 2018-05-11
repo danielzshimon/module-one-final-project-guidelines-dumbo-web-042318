@@ -57,7 +57,7 @@ class CLI
       user = User.find_by email: self.input
       if user == nil
         cls
-        puts "User does not exist.\n\n"
+        puts "User does not exist.\n\n".red
         login_or_signup
       else
         @user = user
@@ -127,7 +127,11 @@ class CLI
 
   def display_all_user_trips
     #get all user trips
+    trips = self.user.trips
     #display created date, origin, destination, line statuses
+    trips.each do | trip |
+      puts "#{trip.created_at}     #{trip.origin}     #{trip.destination}"
+    end
   end
 
   def line_status_prompt
